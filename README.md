@@ -1,1 +1,1 @@
-# simple-vue-chat-webapp
+# vue-simple-chat-webapp
