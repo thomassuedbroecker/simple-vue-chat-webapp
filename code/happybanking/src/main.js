@@ -1,7 +1,10 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
-import "ibm-watson";
+import "axios";
+import assistantv1 from 'ibm-watson/assistant/v2';
+import { IamAuthenticator } from 'ibm-watson/auth';
+
 
 import "./assets/main.css";
 
