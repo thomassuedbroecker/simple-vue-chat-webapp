@@ -8,12 +8,12 @@
          with a state on the art assistant available 24/7 for you.</strong>
       </div>
       <div style="margin-top:30px" >
-        <button @click="count++">
-          Count is: {{ count }}
+        <button @click="onProtectedServer">
+          Protected
         </button>
       </div>
       <div style="margin-top:30px" v-if="(isAuthenticated == true)" >
-        <button @:click="onConnectToServer">Connect to server
+        <button @:click="onUnprotectedServer">Unprotected
         </button>
       </div>
       <div style="margin-top:30px" v-if="isAuthenticated == false" >
@@ -35,7 +35,8 @@ export default {
       count: 0,
       },
       {
-        backendApiUrl: this.$store.state.endpoints.api + "/api/v1/getbackend",
+        backendProtectedApiUrl: this.$store.state.endpoints.api + "/api/v1/getbackend",
+        backendUnprotectedApiUrl: this.$store.state.endpoints.api + "/api/v1/info",
         loading: false,
         error: ""
       }
@@ -55,22 +56,48 @@ export default {
       this.count++
     },
 
-    onConnectToServer() {
+    onProtectedServer() {
       this.loading = true;
       console.log("Data: ", this.$store.state.user.accessToken);
       const axiosService = axios.create({
         timeout: 30000, // because of Code Engine response can be up to 18,29 sec in Postman
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + this.$store.state.user.accessToken
+          Authorization: "bearer " + this.$store.state.user.accessToken
         }
       });
       let that = this;
-      console.log("--> log: api/v1/getbackend URL : " + this.backendApiUrl);
+      console.log("--> log: api/v1/getbackend URL : " + this.backendProtectedApiUrl);
       axiosService
-        .get(this.backendApiUrl)
+        .get(this.backendProtectedApiUrl)
         .then(function(response) {
-          console.log("--> log: backend data : " + response.data);
+          console.log("--> log: backend data : " + JSON.stringify(response.data));
+          that.loading = false;
+          that.error = "";
+        })
+        .catch(function(error) {
+          console.log("--> log: " + error);
+          that.loading = false;
+          that.error = error;
+        });
+    },
+
+    onUnprotectedServer() {
+      this.loading = true;
+      console.log("Data: ", this.$store.state.user.accessToken);
+      const axiosService = axios.create({
+        timeout: 30000, // because of Code Engine response can be up to 18,29 sec in Postman
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "bearer " + this.$store.state.user.accessToken
+        }
+      });
+      let that = this;
+      console.log("--> log: api/v1/info URL : " + this.backendUnprotectedApiUrl);
+      axiosService
+        .get(this.backendUnprotectedApiUrl)
+        .then(function(response) {
+          console.log("--> log: info data : " + JSON.stringify(response));
           that.loading = false;
           that.error = "";
         })
