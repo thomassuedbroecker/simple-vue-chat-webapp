@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
+import store from "./store";
 import "./assets/main.css";
 import { createStore } from 'vuex';
 import Keycloak from 'keycloak-js';
@@ -8,6 +9,7 @@ import Keycloak from 'keycloak-js';
 // **********
 // Create a new store instance.
 // **********
+/*
 const store = createStore({
     state: {
         endpoints: {
@@ -22,7 +24,7 @@ const store = createStore({
           accessToken: ""
         }
       },
-      mutations: {
+    mutations: {
         setAPI(state, payload) {
           state.endpoints.api = payload.api;      
         },
@@ -45,9 +47,15 @@ const store = createStore({
           state.user.name = payload.name;
         }
       },
-      actions: {
+    actions: {
       }
 })
+*/
+
+// **********
+// Create an app instance
+// **********
+const app = createApp(App);
 
 setURLs( window.VUE_APP_KEYCLOAK, window.VUE_APP_BACKEND);
 
@@ -64,16 +72,24 @@ let initOptions = {
 
 let keycloak = new Keycloak(initOptions);
 
+/*
+keycloak.init().then(function(authenticated) {
+  alert(authenticated ? 'authenticated' : 'not authenticated');
+}).catch(function() {
+  alert('failed to initialize');
+});
+*/
+
+
 keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
   if (!auth) {
     window.location.reload();
+    console.log("--> log: Reload page")
   }
-
-  new Vue({
-    store,
-    router,
-    render: h => h(App)
-  }).$mount('#app')
+  
+  app.use(router);
+  app.use(store);
+  app.mount("#app");
 
   let payload = {
     idToken: keycloak.idToken,
@@ -100,7 +116,8 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
     store.commit("login", payloadRefreshedTokens);
     store.commit("logout");
   }
-
+});
+ /*
  setInterval(() => {
     console.log("--> log: interval ");
     console.log("--> log: isAuthenticated ", store.state.user.isAuthenticated);
@@ -147,6 +164,7 @@ keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
 }).catch(() => {
   console.log("-->log: Failed to authenticate");
 });
+*/
 
 // ***********
 // Functions
