@@ -28,7 +28,7 @@ RUN addgroup -g 1500 nginxusers
 RUN adduser --disabled-password -u 1501 nginxuser nginxusers 
 
 # Configure ngnix server
-COPY nginx-happybanking-webapp.conf /etc/nginx/nginx.conf
+COPY nginx-simple-webapp.conf /etc/nginx/nginx.conf
 WORKDIR /code
 COPY --from=BUILD /usr/src/app/dist .
 

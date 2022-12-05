@@ -1,7 +1,6 @@
-# Happy Banking
+# SimpleWebApp
 
 This template should help get you started developing with Vue 3 in Vite.
-Import "ibm-watson" package into [VUE application](https://stackoverflow.com/questions/41921211/how-use-npm-packages-with-vue-spa).
 
 ## Recommended IDE Setup
 

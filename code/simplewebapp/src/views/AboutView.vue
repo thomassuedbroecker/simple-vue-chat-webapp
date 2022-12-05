@@ -25,28 +25,7 @@ export default {
       count: 0,
       }
   },
-  mounted() {
-      var AssistantV2 = require('ibm-watson/assistant/v2'); // watson sdk
-      const { IamAuthenticator, BearerTokenAuthenticator } = require('ibm-watson/auth');
-      // your code as normal js
-      let authenticator;
-      if (process.env.ASSISTANT_IAM_APIKEY) {
-          authenticator = new IamAuthenticator({
-          apikey: process.env.ASSISTANT_IAM_APIKEY
-        });
-        } else if (process.env.BEARER_TOKEN) {
-          authenticator = new BearerTokenAuthenticator({
-          bearerToken: process.env.BEARER_TOKEN
-        });
-      }
 
-      var assistant = new AssistantV2({
-        version: '2019-02-28',
-        authenticator: authenticator,
-        url: process.env.ASSISTANT_URL,
-        disableSslVerification: process.env.DISABLE_SSL_VERIFICATION === 'true' ? true : false
-      });
-  },
   // Methods are functions that mutate state and trigger updates.
   // They can be bound as event listeners in templates.
   methods: {
