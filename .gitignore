@@ -2,8 +2,7 @@
 /data/
 code/happybanking/public/env-config.js
 .DS_Store
-code/simplewebapp/package-lock.json
-code/simplewebapp/public/env-config.js
+code/happybanking/package-lock.json
 
 # Logs
 logs
