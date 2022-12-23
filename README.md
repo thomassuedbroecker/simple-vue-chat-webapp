@@ -2,7 +2,7 @@
 
 The simple chat web app does include following integrations IBM Cloud Watson Assistant, [Keycloak, and connection backend server](https://github.com/thomassuedbroecker/watson-assistant-oidc-nodejs).
 
-The example is called "Happy Banking".
+The example is called "Example Banking".
 
 ### Technologies and frameworks
 
