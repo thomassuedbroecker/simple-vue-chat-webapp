@@ -1,5 +1,5 @@
 {
-  "name": "happybanking",
+  "name": "examplebanking",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
